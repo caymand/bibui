@@ -3,13 +3,14 @@ using System.Runtime.InteropServices;
 namespace Bibui.Core.FreeType.Native;
 
 /// <summary>
-/// The slice of libharfbuzz.so.0 the engine needs. Shaping uses HarfBuzz's own
+/// The slice of HarfBuzz the engine needs, from the libharfbuzz bibui ships
+/// beside libfreetype (see <see cref="FT"/>). Shaping uses HarfBuzz's own
 /// OpenType font functions (not hb-ft) at a 16.16 scale, so advances are the
 /// unhinted design advances at full precision: the numbers text measures with.
 /// </summary>
 internal static unsafe partial class HB
 {
-    private const string Lib = "libharfbuzz.so.0";
+    private const string Lib = "harfbuzz";
 
     public const int MEMORY_MODE_READONLY = 1;
 

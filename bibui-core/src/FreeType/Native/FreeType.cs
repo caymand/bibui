@@ -3,15 +3,16 @@ using System.Runtime.InteropServices;
 namespace Bibui.Core.FreeType.Native;
 
 /// <summary>
-/// The slice of libfreetype.so.6 the engine needs. Struct fields are read by
-/// offset rather than mirrored as C# structs, because only a handful are touched.
-/// The offsets are LP64 (x86-64 and arm64 Linux), or ILP32 for wasm32, and were checked with offsetof
+/// The slice of FreeType the engine needs, from the libfreetype bibui ships
+/// (libfreetype.so or libfreetype.dylib in bibui-core/native/&lt;rid&gt;).
+/// Struct fields are read by offset rather than mirrored as C# structs, because only a handful are touched.
+/// The offsets are LP64 (x86-64 and arm64 Linux and macOS), or ILP32 for wasm32, and were checked with offsetof
 /// against the freetype2 2.14.3 headers; FT_FaceRec, FT_GlyphSlotRec and
 /// FT_Bitmap are public structs whose layout FreeType 2.x keeps stable.
 /// </summary>
 internal static unsafe partial class FT
 {
-    private const string Lib = "libfreetype.so.6";
+    private const string Lib = "freetype";
 
     public const int LOAD_NO_HINTING = 1 << 1;
     public const int LOAD_NO_BITMAP = 1 << 3;
