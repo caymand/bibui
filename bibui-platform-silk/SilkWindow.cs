@@ -65,6 +65,12 @@ public sealed class SilkWindow : IDisposable
     /// </summary>
     public Action? OnRefresh { get; set; }
 
+    /// <summary>
+    /// The window's <c>NSWindow</c> on macOS, for a route that draws into it
+    /// without GL (<c>MetalLayer.Attach</c>); 0 elsewhere.
+    /// </summary>
+    public nint CocoaHandle => Native.Native?.Cocoa ?? 0;
+
     /// <summary>Framebuffer size in physical px.</summary>
     public int FramebufferWidth { get; private set; }
 

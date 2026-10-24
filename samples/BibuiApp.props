@@ -2,24 +2,26 @@
   <!--
     The Bibui.App package a sample runs on, chosen at build time with the
     property App (dotnet run, build or publish with -p:App=WaylandManaged, say).
-    SilkSkiaGl unless given. One package per build: BibuiApp is the same type
+    SilkSkiaMetal on macOS and SilkSkiaGl elsewhere, unless given. One package per build: BibuiApp is the same type
     in every package, so an app references exactly one. APP_SKIA is defined
     when the package brings Skia, for code that draws with it headless.
   -->
   <PropertyGroup>
+    <App Condition="'$(App)' == '' And $([MSBuild]::IsOSPlatform('OSX'))">SilkSkiaMetal</App>
     <App Condition="'$(App)' == ''">SilkSkiaGl</App>
     <_BibuiAppProject Condition="'$(App)' == 'SilkSkiaGl'">silk-skia-gl/bibui-app-silk-skia-gl.csproj</_BibuiAppProject>
+    <_BibuiAppProject Condition="'$(App)' == 'SilkSkiaMetal'">silk-skia-metal/bibui-app-silk-skia-metal.csproj</_BibuiAppProject>
     <_BibuiAppProject Condition="'$(App)' == 'SilkSkiaCpu'">silk-skia-cpu/bibui-app-silk-skia-cpu.csproj</_BibuiAppProject>
     <_BibuiAppProject Condition="'$(App)' == 'SilkManaged'">silk-managed/bibui-app-silk-managed.csproj</_BibuiAppProject>
     <_BibuiAppProject Condition="'$(App)' == 'WaylandManaged'">wayland-managed/bibui-app-wayland-managed.csproj</_BibuiAppProject>
     <_BibuiAppProject Condition="'$(App)' == 'WaylandSkiaCpu'">wayland-skia-cpu/bibui-app-wayland-skia-cpu.csproj</_BibuiAppProject>
-    <DefineConstants Condition="'$(App)' == 'SilkSkiaGl' Or '$(App)' == 'SilkSkiaCpu' Or '$(App)' == 'WaylandSkiaCpu'">$(DefineConstants);APP_SKIA</DefineConstants>
+    <DefineConstants Condition="'$(App)' == 'SilkSkiaGl' Or '$(App)' == 'SilkSkiaMetal' Or '$(App)' == 'SilkSkiaCpu' Or '$(App)' == 'WaylandSkiaCpu'">$(DefineConstants);APP_SKIA</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="$(MSBuildThisFileDirectory)../bibui-apps/$(_BibuiAppProject)" />
   </ItemGroup>
   <Target Name="_CheckBibuiApp" BeforeTargets="PrepareForBuild">
     <Error Condition="'$(_BibuiAppProject)' == ''"
-           Text="App=$(App) is no Bibui.App package: SilkSkiaGl, SilkSkiaCpu, SilkManaged, WaylandManaged or WaylandSkiaCpu." />
+           Text="App=$(App) is no Bibui.App package: SilkSkiaGl, SilkSkiaMetal, SilkSkiaCpu, SilkManaged, WaylandManaged or WaylandSkiaCpu." />
   </Target>
 </Project>

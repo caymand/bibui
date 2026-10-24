@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The counter drawn by Skia through Metal into a Silk window on macOS, through Bibui.App.SilkSkiaMetal. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>counter-metal</AssemblyName>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- The app is samples/counter; this project only picks its package. -->
+    <Compile Include="../counter/*.cs" />
+    <ProjectReference Include="../../bibui-apps/silk-skia-metal/bibui-app-silk-skia-metal.csproj" />
+  </ItemGroup>
+</Project>

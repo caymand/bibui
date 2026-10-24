@@ -17,7 +17,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NuGetAudit>false</NuGetAudit>
     <PackageId>Bibui.Raster.Skia</PackageId>
-    <Description>Draws Bibui's DrawList with SkiaSharp: SkiaGlRenderer on a window's GL context (GPU), SkiaCpuRenderer into memory (CPU). The app constructs the one it wants, bound to the window's target.</Description>
+    <Description>Draws Bibui's DrawList with SkiaSharp: SkiaGlRenderer on a window's GL context (GPU), SkiaMetalRenderer on a macOS window's Metal layer (GPU), SkiaCpuRenderer into memory (CPU). The app constructs the one it wants, bound to the window's target.</Description>
     <PackageTags>$(PackageTags);skia;skiasharp;rendering</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <IsPackable>true</IsPackable>
@@ -26,6 +26,8 @@
     <ProjectReference Include="../bibui-core/bibui-core.csproj" />
     <!-- GlTarget and the GL texture calls SkiaGlRenderer makes its textures with. -->
     <ProjectReference Include="../bibui-gl/bibui-gl.csproj" />
+    <!-- MetalLayer and the Metal texture calls SkiaMetalRenderer makes its textures with. -->
+    <ProjectReference Include="../bibui-metal/bibui-metal.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SkiaSharp" Version="4.153.1" />

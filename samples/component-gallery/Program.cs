@@ -88,8 +88,8 @@ using var app = BibuiApp.Open(runtime, new("Component Gallery", StartWidth, Star
 });
 // The texture page's textures, on the renderer that draws them.
 object renderer = app.Renderer;
-(DemoTexture.SkiaGl, DemoTexture.SkiaCpu, DemoTexture.Managed) =
-    (renderer as SkiaGlRenderer, renderer as SkiaCpuRenderer, renderer as ManagedRenderer);
+(DemoTexture.SkiaGl, DemoTexture.SkiaMetal, DemoTexture.SkiaCpu, DemoTexture.Managed) =
+    (renderer as SkiaGlRenderer, renderer as SkiaMetalRenderer, renderer as SkiaCpuRenderer, renderer as ManagedRenderer);
 app.Frame = Frame;
 while (app.WaitForFrame()) Frame();
 
