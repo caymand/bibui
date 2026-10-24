@@ -498,6 +498,7 @@ internal sealed class SkiaTexture
     public int Width, Height;
     public SKImage? Image;
     public uint GlTexture;
+    public nint MtlTexture;
     public byte[]? Pixels;
 }
 

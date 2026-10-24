@@ -23,6 +23,7 @@ internal static class DemoTexture
     // its textures live. An app with one renderer names it once instead
     // (global using Renderer = ...) and calls it directly.
     internal static SkiaGlRenderer? SkiaGl;
+    internal static SkiaMetalRenderer? SkiaMetal;
     internal static SkiaCpuRenderer? SkiaCpu;
     internal static ManagedRenderer? Managed;
 
@@ -73,12 +74,14 @@ internal static class DemoTexture
 
     private static TextureHandle Create(TextureFormat format, TextureKind kind, byte[] pixels)
         => SkiaGl?.CreateTexture(format, kind, Size, Size, pixels)
+           ?? SkiaMetal?.CreateTexture(format, kind, Size, Size, pixels)
            ?? SkiaCpu?.CreateTexture(format, kind, Size, Size, pixels)
            ?? Managed?.CreateTexture(format, kind, Size, Size, pixels) ?? TextureHandle.None;
 
     private static void Update(TextureHandle texture, byte[] pixels)
     {
         SkiaGl?.UpdateTexture(texture, pixels);
+        SkiaMetal?.UpdateTexture(texture, pixels);
         SkiaCpu?.UpdateTexture(texture, pixels);
         Managed?.UpdateTexture(texture, pixels);
     }

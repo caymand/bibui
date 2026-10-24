@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- nuget.org metadata of a public package: URLs, icon, README, base tags. -->
+  <Import Project="../../packaging/PublicPackage.props" />
+
+  <!-- A bibui app in one package: bibui, a Silk window drawn by Skia through Metal, on the GPU. macOS only.
+       BibuiApp is the same type in every Bibui.App package (../BibuiApp.cs);
+       this package names its window and renderer, and says how they open and
+       draw (SilkSkiaMetal.cs). -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>Bibui.App.SilkSkiaMetal</AssemblyName>
+    <RootNamespace>Bibui.App</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- This package's own code: Silk.NET under it is not trim-safe, so an app
+         on it runs on the JIT (docs/aot.md). As Bibui.Platform.Silk says. -->
+    <IsAotCompatible>true</IsAotCompatible>
+    <PackageId>Bibui.App.SilkSkiaMetal</PackageId>
+    <Description>A bibui app in one package: bibui, a Silk window drawn by Skia through Metal, on the GPU. macOS only. BibuiApp opens the window and renderer and runs the frame in two calls; the same type in every Bibui.App package.</Description>
+    <PackageTags>$(PackageTags);silk;skia;metal;gpu;macos</PackageTags>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <IsPackable>true</IsPackable>
+    <!-- One README for the five Bibui.App packages, with what differs between them. -->
+    <PackageReadmeSource>$(MSBuildThisFileDirectory)../../docs/app-packages.md</PackageReadmeSource>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- The window and renderer this package is, under the names BibuiApp.cs uses. -->
+    <Using Include="Bibui.Core.Runtime.Platform.SilkWindow" Alias="AppWindow" />
+    <Using Include="Bibui.Raster.Skia.SkiaMetalRenderer" Alias="AppRenderer" />
+    <Compile Include="../BibuiApp.cs" Link="BibuiApp.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../bibui-core/bibui-core.csproj" />
+    <ProjectReference Include="../../bibui-platform-silk/bibui-platform-silk.csproj" />
+    <ProjectReference Include="../../bibui-raster-skia/bibui-raster-skia.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The licence and the third-party notices travel with the package. -->
+    <None Include="../../LICENSE" Pack="true" PackagePath="" Visible="false" />
+    <None Include="../../NOTICE" Pack="true" PackagePath="" Visible="false" />
+  </ItemGroup>
+</Project>

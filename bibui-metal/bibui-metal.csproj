@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- nuget.org metadata of a public package: URLs, icon, README, base tags. -->
+  <Import Project="../packaging/PublicPackage.props" />
+
+  <!-- The Metal layer: a CAMetalLayer a platform's macOS window presents
+       (MetalLayer) and the Metal texture calls a renderer on it makes its
+       textures with. Straight to the Objective-C runtime and Metal through
+       [LibraryImport]: no binding package, no window, no renderer. macOS only. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>Bibui.Metal</AssemblyName>
+    <RootNamespace>Bibui.Metal</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <IsAotCompatible>true</IsAotCompatible>
+    <!-- Pins caller spans (pixels in) with `fixed` for the upload. -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageId>Bibui.Metal</PackageId>
+    <Description>Bibui's Metal layer on macOS: a CAMetalLayer a window presents (MetalLayer) and the Metal textures a renderer on it makes, through the Objective-C runtime. Used by Bibui.Raster.Skia's SkiaMetalRenderer.</Description>
+    <PackageTags>$(PackageTags);metal;macos</PackageTags>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../bibui-core/bibui-core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The licence and the third-party notices travel with the package. -->
+    <None Include="../LICENSE" Pack="true" PackagePath="" Visible="false" />
+    <None Include="../NOTICE" Pack="true" PackagePath="" Visible="false" />
+  </ItemGroup>
+</Project>
